@@ -4,16 +4,18 @@ import Project from "./Project"
 const Projects = () => {
 
     const [projects, setProjects] = useState([
-        "Project1", "Project2", "Project3", "Project4", "Project5"
+        "Gym Pal", "Form Critic", "Job Board Pro", "Portfolio", "Checkers Pro"
     ])
 
     return (
-        <div className="projects">
-            <div className="projectHeaderTextWrap">
-                <p className="projectHeaderText">PROJECTS</p>
-            </div>
-            <div className="projectWrap">
-                {projects.map(project => <Project project={project} />)}
+        <div className="projectsRoot">
+            <div className="projects">
+                <div className="projectHeaderTextWrap">
+                    <p className="projectHeaderText">PROJECTS</p>
+                </div>
+                <div className="projectWrap">
+                    {projects.map(project => <Project project={project} />)}
+                </div>
             </div>
         </div>
     );
