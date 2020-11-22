@@ -217,18 +217,25 @@ body {
       margin-bottom: 15px;
       padding: 10px;
     }
+  }}
+//     .onboardingButton {
+//       width: 50%;
+//       margin: 0 auto;
+//       border-radius: $standardBorderRadius;
+//       background: mediumseagreen;
 
-    .onboardingButton {
-      width: 50%;
-      margin: 0 auto;
-      border-radius: $standardBorderRadius;
-      background: mediumseagreen;
+//       p {
+//         margin: 15px 10px !important;
+//         font-size: 20px;
+//       }
 
-      p {
-        margin: 15px 10px !important;
-        font-size: 20px;
-      }
-    }
-  }
+//     }
+//   }
 
-}
+// }
+
+      // .onboardingButton:hover{
+      //   transition: .8s;
+      //   cursor: pointer;
+      //   background: rgb(43, 134, 84) !important;
+      // }

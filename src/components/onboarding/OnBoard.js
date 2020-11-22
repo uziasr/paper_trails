@@ -1,7 +1,7 @@
 import react from "react"
-import Login from "./Login"
-import Register from "./Register"
 import axios from "axios"
+import { useHistory } from "react-router-dom";
+import styled from 'styled-components';
 
 class OnBoard extends react.Component {
     constructor(props) {
@@ -11,14 +11,13 @@ class OnBoard extends react.Component {
                 email: '',
                 password: ''
             },
-            loggingIn: false,
+            loggingIn: true,
             error: null
         }
         this.onFormChange = this.onFormChange.bind(this)
     }
 
     onFormChange(e) {
-        console.log(e.target.value)
         this.setState({
             ...this.state, credentials: {
                 ...this.state.credentials,
@@ -27,11 +26,16 @@ class OnBoard extends react.Component {
         })
     }
 
-    toggleLoggingIn() {
+    toggleLoggingIn(bool) {
         this.setState({
             ...this.state,
-            loggingIn: !this.state.loggingIn
+            loggingIn: bool
         })
+    }
+
+
+    move() {
+        this.props.history.push("/woo", this.props)
     }
 
     submitHandler() {
@@ -61,12 +65,33 @@ class OnBoard extends react.Component {
 
     }
 
+
+
     render() {
+        console.log(this.props)
+        const LoginButton = styled.div`
+        width: 50%;
+      margin: 0 auto;
+      border-radius: 15px;
+      background: ${this.state.loggingIn ? "mediumseagreen" : "grey"};
+
+    p {
+        margin: 15px 10px !important;
+        font-size: 20px;
+      }
+
+    }
+        :hover{
+            transition: .8s;
+            cursor: pointer;
+            background: ${ this.state.loggingIn ? "rgb(43, 134, 84) !important": "grey"};
+        }
+    `
         return (
             <div className="onboardingRoot">
                 <div className="onboardingTitleWrap">
-                    <p onClick={() => this.setState({ ...this.state, loggingIn: false })} style={{ color: this.state.loggingIn ? "white" : "mediumseagreen" }}>REGISTER</p>
-                    <p onClick={() => this.setState({ ...this.state, loggingIn: true })} style={{ color: this.state.loggingIn ? "mediumseagreen" : "white" }}>LOGIN</p>
+                    <p onClick={() => this.toggleLoggingIn(false)} style={{ color: this.state.loggingIn ? "white" : "mediumseagreen", transition:".35s"  }}>REGISTER</p>
+                    <p onClick={() => this.toggleLoggingIn(true)} style={{ color: this.state.loggingIn ? "mediumseagreen" : "white" , transition:".35s"  }}>LOGIN</p>
                 </div>
                 <div className="onboardingFormWrap">
                     <input
@@ -82,9 +107,9 @@ class OnBoard extends react.Component {
                         value={this.state.credentials.password}
                         onChange={(e) => this.onFormChange(e)}>
                     </input>
-                    <div disable={true} className="onboardingButton">
+                    <LoginButton condition={true} disabled={true}  className="onboardingButton">
                         <p>{this.state.loggingIn ? "Login" : "Register"}</p>
-                    </div>
+                    </LoginButton>
                 </div>
             </div>
         )
