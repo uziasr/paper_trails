@@ -55,20 +55,38 @@ class OnBoard extends react.Component {
         this.setState({
             ...this.state,
             errors: validity.email && validity.password ? "invalid email and password needs to be longer than 4 characters"
-                : validity.email===false && validity.password ? "invalid email" :
-                validity.email && validity.password===false ? "passwords need to be longer than 4 character": null
+                : validity.email === false && validity.password ? "invalid email" :
+                    validity.email && validity.password === false ? "passwords need to be longer than 4 character" : null
         })
 
     }
 
     render() {
         return (
-            <>
-                {this.state.loggingIn ?
-                    <Login credentials={this.state.credentials} onFormChange={this.onFormChange} />
-                    :
-                    <Register credentials={this.state.credentials} onFormChange={this.onFormChange} />}
-            </>
+            <div className="onboardingRoot">
+                <div className="onboardingTitleWrap">
+                    <p onClick={() => this.setState({ ...this.state, loggingIn: false })} style={{ color: this.state.loggingIn ? "white" : "mediumseagreen" }}>REGISTER</p>
+                    <p onClick={() => this.setState({ ...this.state, loggingIn: true })} style={{ color: this.state.loggingIn ? "mediumseagreen" : "white" }}>LOGIN</p>
+                </div>
+                <div className="onboardingFormWrap">
+                    <input
+                        name="email"
+                        placeholder="enter email"
+                        value={this.state.credentials.email}
+                        onChange={(e) => this.onFormChange(e)}>
+                    </input>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="enter password"
+                        value={this.state.credentials.password}
+                        onChange={(e) => this.onFormChange(e)}>
+                    </input>
+                    <div disable={true} className="onboardingButton">
+                        <p>{this.state.loggingIn ? "Login" : "Register"}</p>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

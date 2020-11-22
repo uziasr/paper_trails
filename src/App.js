@@ -5,15 +5,16 @@ import Projects from "./components/Projects"
 import ProjectDetails from "./components/ProjectDetails"
 import { Switch, Route } from "react-router-dom"
 import OnBoard from "./components/onboarding/OnBoard"
+import PrivateRoute from "./utils/PrivateRoute"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <Switch>
-          <Route exact path={"/"} component={Projects} /> 
-          <Route exact path={"/projectDetails"} component={ProjectDetails} />
-          <Route exact path={"/login"} component={OnBoard}/>
+          <PrivateRoute exact path={"/"} component={Projects} /> 
+          <PrivateRoute exact path={"/projectDetails"} component={ProjectDetails} />
+          <Route exact path={"/register"} component={OnBoard}/>
         </Switch>
       </header>
     </div>
