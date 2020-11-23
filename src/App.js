@@ -13,7 +13,7 @@ function App() {
       <header className="App-header">
         <Switch>
           <PrivateRoute exact path={"/"} component={Projects} /> 
-          <PrivateRoute exact path={"/projectDetails"} component={ProjectDetails} />
+          <PrivateRoute path={"/projectDetails/:id"} component={ProjectDetails} />
           <Route exact path={"/register"} component={OnBoard}/>
         </Switch>
       </header>

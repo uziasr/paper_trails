@@ -3,9 +3,9 @@ import React from 'react';
 const ProjectLinks = ({ category }) => {
     return (
         <div className="projectDetailsColumn clickable">
-            {category.content.map(link => (
-                <a href={link.src} target="_blank">
-                    <p className="linkText">{link.name ? link.name : link.src}</p>
+            {category.links.map(link => (
+                <a href={link.url} target="_blank">
+                    <p className="linkText">{link.name ? link.name : link.url}</p>
                 </a>
             ))}
             <div className="newCategory newLink">

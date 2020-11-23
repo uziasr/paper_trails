@@ -1,30 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getProjectByID } from "../store/actions"
+import { useSelector, useDispatch } from "react-redux"
 import ProjectLinks from "./ProjectLinks"
 
 const ProjectDetails = () => {
 
-    const [project, setProject] = useState({
-        title: "Gym Buddy",
-        categories:
-            [
-                {
-                    title: "login registration", content: [
-                        { name: "sample form", src: "https://medium.com/@mixalisdobs/just-another-registration-form-with-react-native-707943a9edaf" },
-                        { name: "easy form", src: "https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b" },
-                        { name: "example code", src: "https://www.bootdey.com/react-native-snippet/10/Signup-form-ui-example" }
-                    ]
-                },
+    const project = useSelector(state => state.fullProject)
+    const dispatch = useDispatch()
 
-                {
-                    title: "analytics", content: [
-                        { name: "victory library", src: "https://formidable.com/open-source/victory/" },
-                        { name: "list of libraries", src: "https://openbase.io/packages/top-react-data-visualization-libraries" },
-                        { src: "https://reactfordataviz.com/" }
+    useEffect(() => {
+        const projectArr = window.location.pathname.split('/')
+        const projectId = projectArr[projectArr.length - 1]
+        dispatch(getProjectByID(projectId))
+    }, [])
 
-                    ]
-                }
-            ]
-    })
 
     const [activeCategory, setActiveCategory] = useState(null)
 
@@ -32,20 +21,21 @@ const ProjectDetails = () => {
 
     const activeHandler = (category) => {
         if (activeCategory) {
-            activeCategory.title === category.title ? setActiveCategory(null) : setActiveCategory(category)
+            activeCategory.category === category.category ? setActiveCategory(null) : setActiveCategory(category)
         } else {
             setActiveCategory(category)
         }
     }
 
     return (
-        <div className="projectDetailsRoot">
+
+        project.project !== null ? <div className="projectDetailsRoot">
             <div className="projectDetailsColumn">
-                <p className="projectDetailsTitle">{project.title}</p>
+                <p className="projectDetailsTitle">{project.project}</p>
             </div>
             <div className="projectDetailsColumn clickable">{project.categories.map((category, index) => (
-                <div className="projectCategoryTextWrap" key={index} style={{ color: !activeCategory ? null : category.title == activeCategory.title ? "mediumseagreen" : null, borderRadius: "15px" }} onClick={() => activeHandler(category)}>
-                    <p>{category.title}</p>
+                <div className="projectCategoryTextWrap" key={index} style={{ color: !activeCategory ? null : category.category == activeCategory.category ? "mediumseagreen" : null, borderRadius: "15px" }} onClick={() => activeHandler(category)}>
+                    <p>{category.category}</p>
                 </div>
             ))}
 
@@ -62,7 +52,8 @@ const ProjectDetails = () => {
             {activeCategory ?
                 <ProjectLinks category={activeCategory} />
                 : null}
-        </div>
+        </div> : null
+
     );
 };
 

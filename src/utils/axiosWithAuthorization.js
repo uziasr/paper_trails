@@ -2,7 +2,7 @@ import axios from "axios"
 
 const axiosWithAuthorization = () => {
     const token = localStorage.getItem("token") || ""
-    const productionAPI = "https://papertrail1.herokuapp.com/"
+    const productionAPI = "https://papertrail1.herokuapp.com/api"
     return axios.create({
         baseURL: productionAPI,
         headers: {

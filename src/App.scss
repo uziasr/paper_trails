@@ -65,6 +65,7 @@ body {
   align-content: center;
   align-items: center;
   transition: 1s;
+  width: 80%;
 
   .projects {
     width: 70%;
@@ -89,7 +90,7 @@ body {
 
       .project:hover {
         transition: .8s;
-        opacity: .75;
+        background: rgb(27, 27, 27);
       }
 
       .project {

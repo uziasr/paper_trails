@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux"
+import { getProjects } from "../store/actions"
 import Project from "./Project"
 
-const Projects = () => {
+const Projects = (props) => {
 
-    const [projects, setProjects] = useState([
-        "Gym Pal", "Form Critic", "Job Board Pro", "Portfolio", "Checkers Pro"
-    ])
+    const state = useSelector(state => state)
+    const dispatch = useDispatch()
+    console.log("this is props", props)
+    useEffect(()=>{
+        dispatch(getProjects())
+    },[])
 
     return (
         <div className="projectsRoot">
@@ -14,7 +19,7 @@ const Projects = () => {
                     <p className="projectHeaderText">PROJECTS</p>
                 </div>
                 <div className="projectWrap">
-                    {projects.map(project => <Project project={project} />)}
+                    {state.projects.map(project => <Project props={props} key={project.id} project={project} />)}
                 </div>
             </div>
         </div>
