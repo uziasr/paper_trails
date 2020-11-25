@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom"
 
 const Project = ({ project, props }) => {
 
-    console.log(props)
-
     const history = useHistory()
     const projectEventHandler = (id) => {
         history.push({

@@ -25,7 +25,6 @@ export const getProjects = () => dispatch => {
     dispatch({ type: GET_PROJECTS_START })
     axiosWithAuth().get("/projects/all")
         .then(res => {
-            console.log("this is res", res)
             dispatch({ type: GET_PROJECTS_SUCCESS, payload: res.data })
         })
         .catch(err => dispatch({ type: GET_PROJECTS_FAIL, payload: err }))

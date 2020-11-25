@@ -75,18 +75,44 @@ body {
 
     .projectHeaderTextWrap {
       border-bottom: 1px solid $standardFontColor;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      align-items: center;
+      padding-bottom: 12px;
+
+      .addProject {
+        cursor: pointer;
+        text-align: left;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
 
       .projectHeaderText {
         color: $standardFontColor;
         font-weight: bold;
         letter-spacing: 10px;
         text-align: left;
-        margin: 0 0 10px 32px;
+        margin: 0 0 0 0;
       }
     }
 
     .projectWrap {
       @include getFlexed;
+      align-items: center;
+
+      input {
+        //   width: 175px;
+        //   background-color: transparent;
+        // margin: 1% 2%;
+        //   height: 40px;
+        //   border-radius: $standardBorderRadius;
+        border-bottom: 1px solid white;
+        color: white;
+      }
 
       .project:hover {
         transition: .8s;
@@ -102,6 +128,7 @@ body {
         background: rgb(41, 41, 41);
         cursor: pointer;
 
+
         .projectText {
           font-size: 16px;
           font-weight: 400;
@@ -113,7 +140,10 @@ body {
 }
 
 .projectDetailsRoot {
+  height: 100vh;
+  align-self: flex-start;
   display: flex;
+  flex-direction: column;
   width: 100%;
   font-size: 22px;
 
@@ -129,32 +159,37 @@ body {
     justify-content: flex-start;
     align-content: flex-start;
 
-    .projectCategoryTextWrap {
-      margin-bottom: 5%;
+    .projectDetailsTitle {
+      font-size: 28px;
+      margin: 50px 0 50px 25px;
     }
+  }
 
-    a {
-      border: 0px;
-      text-decoration: none;
-      display: table-cell;
-
-      .linkText {
-        color: $standardFontColor;
-        text-decoration: none;
-
-      }
-    }
-
-
-
-
-
+  .projectContent {
+    // background: whitesmoke;
+    border-radius: $standardBorderRadius;
+    opacity: 0.9;
+    width:95%;
+    height: 80%;
+    margin: 0 auto;
+    
     .newCategory {
       display: flex;
       justify-content: space-between;
-      height: 13%;
+      align-items: center;
+      align-content: center;
+      border-radius: $standardBorderRadius;
+      border: 1px solid black;
+      padding: 1%;
+      width: 35%;
+      margin: 0 auto;
 
-      .categoryInput {
+      p {
+        padding: 0;
+        margin: 0;
+      }
+
+      Input {
         background: none;
         border-top: 0px;
         border-left: 0px;
@@ -163,21 +198,37 @@ body {
         font-size: 16px;
         border-color: white;
         text-decoration: none;
-        width: 75%;
+        width: 100%;
       }
 
       .categoryButton {
-        background: mediumseagreen;
         border-radius: $standardBorderRadius;
-        width: 15%;
         display: flex;
         justify-content: center;
         align-content: center;
         align-items: center;
+      }
+    }
 
+    .projectContentDetailsColumn {
+      width: 15%;
+      margin-left: 2%;
+      .projectCategoryTextWrap {
+        margin-bottom: 5%;
         p {
-          padding: 0;
-          margin: 0;
+          text-align: left;
+          color: white;
+        }
+      }
+
+      a {
+        border: 0px;
+        text-decoration: none;
+        display: table-cell;
+
+        .linkText {
+          color: $standardFontColor;
+          text-decoration: none;
 
         }
       }

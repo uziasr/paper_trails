@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                projects: action.payload
+                projects: action.payload.reverse()
             }
         }
         case (GET_PROJECTS_FAIL): {
@@ -83,7 +83,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                projects: [...state.projects, action.payload]
+                projects: [action.payload, ...state.projects]
             }
         }
         case (POST_PROJECT_FAIL): {
@@ -139,7 +139,7 @@ const reducer = (state = initialState, action) => {
                                 ...category, links: [...category.links, action.payload]
                             }
                         } else {
-                            category
+                            return category
                         }
                     })
                 }

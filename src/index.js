@@ -9,17 +9,19 @@ import { logger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import reducer from "./store/reducer"
+import {ThemeProvider} from "@material-ui/core"
+import theme from "./theme"
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
