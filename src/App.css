@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap");
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1511884642898-4c92249e20b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+    /* /opacity: 0.85; */
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.projectsRoot {
+    display: flex;
+    justify-content: column;
+    align-content: center;
+    align-items: center;
+    transition: 1s;
+    width: 80%;
+}
+
+.projects {
+    width: 70%;
+    margin: 0 auto;
+    /* // margin-bottom: 30%; */
+}
+
+.projectHeaderTextWrap {
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.addProject {
+    cursor: pointer;
+    text-align: left;
+}
+
+.addProject p {
+    margin: 0;
+    padding: 0;
+}
+
+.projectHeaderText {
+    color: white;
+    font-weight: bold;
+    letter-spacing: 10px;
+    text-align: left;
+    margin: 0 0 0 0;
+}
+
+
+.projectWrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.projectWrap input {
+    /* //   width: 175px;
+        //   background-color: transparent;
+        // margin: 1% 2%;
+        //   height: 40px;
+        //   border-radius: 15px; */
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+.project:hover {
+    transition: .8s;
+    background: rgb(27, 27, 27);
+}
+
+.project {
+    width: 175px;
+    margin: 1% 2%;
+    padding: 10px 35px;
+    display: flex;
+    border-radius: 15px;
+    background: rgb(41, 41, 41);
+    cursor: pointer;
+}
+
+.projectText {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+}
+
+
+.projectDetailsRoot {
+    height: 100vh;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 22px;
+}
+
+.clickable {
+    cursor: pointer;
+
+}
+
+.projectDetailsColumn {
+    width: 20%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+.projectDetailsColumn .clickable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;  
+}
+
+.projectDetailsTitle {
+    font-size: 28px;
+    margin: 50px 0 50px 25px;
+    transition: 0.25s
+}
+
+
+.projectContent {
+    display: flex;
+    border-radius: 15px;
+    opacity: 0.9;
+    width: 95%;
+    height: 80%;
+    margin: 1% auto;
+}
+
+.newCategory {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    border-radius: 15px;
+    border: 1px solid black;
+    padding: 1%;
+    width: 35%;
+    margin: 0 auto 1% auto;
+}
+
+.newCategory p {
+    padding: 0;
+    margin: 0;
+}
+
+.newCategory Input {
+    background: none;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    color: white;
+    font-size: 16px;
+    border-color: white;
+    text-decoration: none;
+    width: 100%;
+}
+
+.categoryButton {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+
+.projectContentDetailsColumn {
+    width: 15%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projectCategoryTextWrap {
+    margin: 0 10% 5% 10%;
+}
+
+.projectCategoryTextWrap p {
+    text-align: left;
+    color: white;
+}
+
+
+.projectContentDetailsColumn a {
+    border: 0px;
+    text-decoration: none;
+    display: table-cell;
+}
+
+.linkText {
+    color: white;
+    text-decoration: none;
+
+}
+
+.newLink {
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.categoryButton {
+    width: 30%;
+}
+
+
+.onboardingRoot {
+    width: 25%;
+}
+
+.onboardingTitleWrap {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.onboardingTitleWrap p:hover {
+    cursor: pointer;
+}
+
+
+
+.onboardingFormWrap {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.onboardingFormWrap input {
+    margin-bottom: 15px;
+    padding: 10px;
+}

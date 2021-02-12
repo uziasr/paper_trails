@@ -1,6 +1,6 @@
 import React from "react"
 import logo from './logo.svg';
-import './App.scss';
+import './App.css';
 import Projects from "./components/Projects"
 import ProjectDetails from "./components/ProjectDetails"
 import { Switch, Route } from "react-router-dom"

@@ -8,7 +8,7 @@ const ProjectLinks = ({ category }) => {
                     <p className="linkText">{link.name ? link.name : link.url}</p>
                 </a>
             ))}
-            <div className="newCategory newLink">
+            {/* <div className="newCategory newLink">
                 <div>
                     <input
                         placeholder="add name"
@@ -22,7 +22,7 @@ const ProjectLinks = ({ category }) => {
                 <div className="categoryButton">
                     <p>+</p>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

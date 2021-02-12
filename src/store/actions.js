@@ -54,7 +54,7 @@ export const postCategory = (projectID, category) => dispatch => {
 export const postLink = (categoryID, link) => dispatch => {
 
     dispatch({ type: POST_LINK_START })
-    axiosWithAuth().post(`/link/${categoryID}`, link)
+    axiosWithAuth().post(`/links/${categoryID}`, link)
         .then(res => dispatch({ type: POST_LINK_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: POST_LINK_FAIL, payload: err }))
 }

@@ -12,7 +12,7 @@ import reducer from "./store/reducer"
 import {ThemeProvider} from "@material-ui/core"
 import theme from "./theme"
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

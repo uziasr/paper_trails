@@ -146,6 +146,7 @@ const reducer = (state = initialState, action) => {
             }
         }
         case (POST_LINK_FAIL): {
+            console.log("hello",action.payload)
             return {
                 ...state,
                 loading: false,
