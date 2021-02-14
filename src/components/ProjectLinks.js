@@ -5,29 +5,14 @@ const ProjectLinks = ({ category, newLinkEvent }) => {
     console.log(category)
     return (
         <div className="projectDetailsColumn clickable">
-            <div>
+            <div style={{ alignSelf: "flex-start" }}>
                 <Button variant="contained" onClick={newLinkEvent} color="primary">+</Button>
             </div>
             {category.links.map(link => (
-                <a key={link.id} href={link.url} target="_blank">
+                <a className="link" key={link.id} href={link.url} target="_blank">
                     <p className="linkText">{link.name ? link.name : link.url}</p>
                 </a>
             ))}
-            {/* <div className="newCategory newLink">
-                <div>
-                    <input
-                        placeholder="add name"
-                        className="categoryInput">
-                    </input>
-                    <input
-                        placeholder="add url*"
-                        className="categoryInput">
-                    </input> 
-                </div>
-                <div className="categoryButton">
-                    <p>+</p>
-                </div>
-            </div> */}
         </div>
     );
 };

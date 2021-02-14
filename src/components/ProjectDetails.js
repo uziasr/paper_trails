@@ -52,7 +52,7 @@ const ProjectDetails = () => {
 
     const activeHandler = (category) => {
         if (activeCategory) {
-            activeCategory.category === category.category ? setActiveCategory(null) : setActiveCategory(category)
+            activeCategory.category === category.name ? setActiveCategory(null) : setActiveCategory(category)
         } else {
             setActiveCategory(category)
         }
@@ -91,51 +91,12 @@ const ProjectDetails = () => {
         handleClose()
     }
 
-    console.log(activeCategory)
-
     return (
-
         project.project !== null ? <div className="projectDetailsRoot">
             <div className="projectDetailsColumn">
                 <p className="projectDetailsTitle">{project.project}</p>
             </div>
-            {/* {console.log(project)} */}
             <div className="projectContent">
-                {/* <div className="newCategory">
-                    <p>{activeCategory ? "Add Link" : "Add Category"}</p>
-                    {activeCategory ?
-                        <>
-                            <TextField
-                                name="name"
-                                onChange={(e) => categoryOnChange(e)}
-                                value={newLink.name}
-                                placeholder="enter name"
-                                className={classes["MuiInputBase-input"]} />
-                            <TextField
-                                name="url"
-                                onChange={(e) => categoryOnChange(e)}
-                                value={newLink.url}
-                                placeholder={"enter url*"}
-                                className={classes["MuiInputBase-input"]}
-                            />
-                        </>
-                        : <TextField
-                            name="category"
-                            onChange={(e) => categoryOnChange(e)}
-                            value={newCategory}
-                            placeholder={"enter category*"}
-                            className={classes["MuiInputBase-input"]}
-                        />}
-                    <div className="categoryButton">
-                        <Button
-                            variant="contained"
-                            style={{ borderRadius: "0" }}
-                            color="primary"
-                            onClick={() => categoryHandler()}
-                            disabled={activeCategory ? newLink.url === "" : newCategory === ""}
-                        >Submit</Button>
-                    </div>
-                </div> */}
                 <div className="projectContentDetailsColumn clickable">
                     <div style={{ display: "flex", flexDirection: "column", width: "60%" }}>
                         <div>

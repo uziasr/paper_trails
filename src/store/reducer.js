@@ -128,16 +128,13 @@ const reducer = (state = initialState, action) => {
             }
         }
         case (POST_LINK_SUCCESS): {
-            // console.log(state.fullProject.categories)
-            let b = {
+            return {
                 ...state,
                 loading: false,
                 fullProject: {
                     ...state.fullProject,
                     categories: state.fullProject.categories.map(category => {
-                        // console.log("hello", action.payload.category_id, category.id, category)
                         if (action.payload.category_id === category.id) {
-                            // console.log(action.payload)
                             return {
                                 ...category, links: [...category.links, action.payload]
                             }
@@ -147,11 +144,8 @@ const reducer = (state = initialState, action) => {
                     })
                 }
             }
-            console.log(b)
-            return b
         }
         case (POST_LINK_FAIL): {
-            console.log("hello",action.payload)
             return {
                 ...state,
                 loading: false,
