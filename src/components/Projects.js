@@ -27,6 +27,7 @@ const Projects = (props) => {
 
     const projectOnChange = (e) => {
         setNewProject(e.target.value)
+        console.log(newProject)
     }
 
     return (

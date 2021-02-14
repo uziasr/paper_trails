@@ -35,16 +35,14 @@ const ProjectDetails = () => {
         url: "",
         name: ""
     })
-    const [dialogProps, setDialogProps] = useState([newCategory, setNewCategory])
+    const [addingNewCategory, setAddingNewCategory] = useState(true)
     const projectArr = window.location.pathname.split('/')
     const projectId = projectArr[projectArr.length - 1]
-    const classes = useStyles();
-
 
 
     useEffect(() => {
         dispatch(getProjectByID(projectId))
-    }, [])
+    }, [project])
 
 
     const activeHandler = (category) => {
@@ -55,13 +53,20 @@ const ProjectDetails = () => {
         }
     }
 
+    const onInputChange = (event) => {
+        if (addingNewCategory) {
+            setNewCategory(() => ({ name: event.target.value }))
+        } else {
+            setNewLink({ ...newLink, [event.target.name]: event.target.value })
+        }
+    }
+
     const newCategoryEvent = () => {
-        setDialogProps([newCategory, setNewCategory])
         setOpen(true)
     }
 
-    const newLinkEvent = () =>{
-        setDialogProps([newLink, setNewLink])
+    const newLinkEvent = () => {
+        setAddingNewCategory(true)
         setOpen(true)
     }
 
@@ -125,7 +130,7 @@ const ProjectDetails = () => {
                 {activeCategory ?
                     <ProjectLinks category={activeCategory} />
                     : null}
-                <AddDialog open={open} setOpen={setOpen} addForm={dialogProps}/>
+                <AddDialog open={open} dispatch={dispatch} setOpen={setOpen} getObj={addingNewCategory ? newCategory : newLink} setObj={onInputChange} post={addingNewCategory ? postCategory : postLink}  id={activeCategory ? activeCategory.id : projectId}  />
             </div>
         </div> : null
 

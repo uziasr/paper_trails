@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Input from "@material-ui/core/Input"
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -8,20 +9,42 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormDialog(props) {
-    const {open, setOpen} = props
-    const [getObj, setObj] = props.addForm
+    const { open, setOpen, getObj, setObj, post, id, dispatch } = props
+    // const [getObj, setObj, post, id] = props.addForm
     const contentText = {
         category: "Add a new category to this Project.",
         link: "Add a new link to this category and provide a name"
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    // const handleChange = (event) => {
+    //     let newObj = { ...getObj, [event.target.name]: event.target.value }
+    //     console.log(newObj, getObj)
+    //     setObj(() => newObj)
+    //     console.log(getObj)
+    // }
+
+    const postCategoryOrLink = () => {
+        dispatch(post(id, getObj))
+        setOpen(false)
+    }
+
+    const isCategory = () => {
+        return Object.keys(getObj).length === 1
+    }
+
+    const validInputs = () => {
+        if (isCategory()) {
+            return getObj.name.length
+        } else {
+            return getObj.url.length
+        }
+    }
 
     const handleClose = () => {
         setOpen(false);
+        // isCategory() ? setObj({ name: "" }) : setObj({ url: "", name: "" })
     };
+
 
     return (
         <div>
@@ -29,23 +52,49 @@ export default function FormDialog(props) {
                 <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {Object.keys(getObj).length===1 ? contentText.category : contentText.link}
-          </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                    />
+                        {isCategory() ? contentText.category : contentText.link}
+                    </DialogContentText>
+                    {isCategory() ?
+                        <Input
+                            autoFocus
+                            margin="dense"
+                            name="name"
+                            onChange={setObj}
+                            id="name"
+                            label="category"
+                            // value={getObj.name}
+                            fullWidth
+                        /> :
+                        <>
+                            <Input
+                                autoFocus
+                                margin="dense"
+                                name="url"
+                                onChange={setObj}
+                                id="url"
+                                label="link"
+                                value={getObj.url}
+                                fullWidth
+                            />
+                            <Input
+                                autoFocus
+                                margin="dense"
+                                name="name"
+                                onChange={setObj}
+                                id="name"
+                                label="category"
+                                value={getObj.name}
+                                fullWidth
+                            />
+                        </>
+                    }
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Subscribe
+                    <Button disabled={!validInputs()} onClick={postCategoryOrLink} color="primary">
+                        Add
           </Button>
                 </DialogActions>
             </Dialog>
