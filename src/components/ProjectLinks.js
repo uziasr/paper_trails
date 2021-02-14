@@ -1,10 +1,15 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
-const ProjectLinks = ({ category }) => {
+const ProjectLinks = ({ category, newLinkEvent }) => {
+    console.log(category)
     return (
         <div className="projectDetailsColumn clickable">
+            <div>
+                <Button variant="contained" onClick={newLinkEvent} color="primary">+</Button>
+            </div>
             {category.links.map(link => (
-                <a href={link.url} target="_blank">
+                <a key={link.id} href={link.url} target="_blank">
                     <p className="linkText">{link.name ? link.name : link.url}</p>
                 </a>
             ))}

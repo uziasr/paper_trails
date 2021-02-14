@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { getProjectByID } from "../store/actions"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import ProjectLinks from "./ProjectLinks"
 import { postCategory, postLink } from "../store/actions"
 import TextField from '@material-ui/core/TextField';
@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectDetails = () => {
 
-    const project = useSelector(state => state.fullProject)
+    const project = useSelector(state => (state.fullProject), shallowEqual)
     const dispatch = useDispatch()
+    // const [project, setProject] = useState()
     const [activeCategory, setActiveCategory] = useState(null)
     const [open, setOpen] = useState(false);
     const [newCategory, setNewCategory] = useState({ name: "" })
@@ -42,8 +43,12 @@ const ProjectDetails = () => {
 
     useEffect(() => {
         dispatch(getProjectByID(projectId))
-    }, [project])
+    }, [])
 
+    useEffect(() => {
+        let currentCategory = activeCategory ? project.categories.filter(category=>activeCategory.id===category.id)[0] : null
+        setActiveCategory(currentCategory)
+    }, [project])
 
     const activeHandler = (category) => {
         if (activeCategory) {
@@ -54,22 +59,39 @@ const ProjectDetails = () => {
     }
 
     const onInputChange = (event) => {
+        if (!event.target) return
         if (addingNewCategory) {
-            setNewCategory(() => ({ name: event.target.value }))
+            setNewCategory({ name: event.target.value })
         } else {
             setNewLink({ ...newLink, [event.target.name]: event.target.value })
         }
     }
 
     const newCategoryEvent = () => {
-        setOpen(true)
-    }
-
-    const newLinkEvent = () => {
         setAddingNewCategory(true)
         setOpen(true)
     }
 
+    const newLinkEvent = () => {
+        setAddingNewCategory(false)
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        addingNewCategory ? setNewCategory({ name: '' }) : setNewLink({ url: "", name: "" })
+        setOpen(false);
+    }
+
+    const postCategoryOrLink = () => {
+        if (addingNewCategory) {
+            dispatch(postCategory(projectId, newCategory))
+        } else {
+            dispatch(postLink(activeCategory.id, newLink))
+        }
+        handleClose()
+    }
+
+    console.log(activeCategory)
 
     return (
 
@@ -77,6 +99,7 @@ const ProjectDetails = () => {
             <div className="projectDetailsColumn">
                 <p className="projectDetailsTitle">{project.project}</p>
             </div>
+            {/* {console.log(project)} */}
             <div className="projectContent">
                 {/* <div className="newCategory">
                     <p>{activeCategory ? "Add Link" : "Add Category"}</p>
@@ -114,27 +137,26 @@ const ProjectDetails = () => {
                     </div>
                 </div> */}
                 <div className="projectContentDetailsColumn clickable">
-                    {project.categories.map((category, index) => (
-                        <div className="projectCategoryTextWrap" key={index} onClick={() => activeHandler(category)}>
-                            <p
-                                style={{ color: !activeCategory ? null : category.category == activeCategory.category ? "mediumseagreen" : null, transition: "0.35s" }}
-                            >{category.category}</p>
-                        </div>
-                    ))}
                     <div style={{ display: "flex", flexDirection: "column", width: "60%" }}>
                         <div>
                             <Button variant="contained" onClick={newCategoryEvent} color="primary">+</Button>
                         </div>
                     </div>
+                    {project.categories.map((category, index) => {
+                        return <div className="projectCategoryTextWrap" key={index} onClick={() => activeHandler(category)}>
+                            <p style={{ color: !activeCategory ? null : category.name == activeCategory.name ? "mediumseagreen" : null, transition: "0.35s" }}
+                            >{category.name}</p>
+                        </div>
+                    })}
                 </div>
                 {activeCategory ?
-                    <ProjectLinks category={activeCategory} />
+                    <ProjectLinks category={activeCategory} newLinkEvent={newLinkEvent} />
                     : null}
-                <AddDialog open={open} dispatch={dispatch} setOpen={setOpen} getObj={addingNewCategory ? newCategory : newLink} setObj={onInputChange} post={addingNewCategory ? postCategory : postLink}  id={activeCategory ? activeCategory.id : projectId}  />
+                <AddDialog open={open} postCategoryOrLink={postCategoryOrLink} dispatch={dispatch} handleClose={handleClose} getObj={addingNewCategory ? newCategory : newLink} setObj={onInputChange} post={addingNewCategory ? postCategory : postLink} id={activeCategory ? activeCategory.id : projectId} />
             </div>
         </div> : null
 
     );
 };
 
-export default ProjectDetails;
+export default memo(ProjectDetails);

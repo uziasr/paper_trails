@@ -9,11 +9,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormDialog(props) {
-    const { open, setOpen, getObj, setObj, post, id, dispatch } = props
+    const { open, handleClose, getObj, setObj, postCategoryOrLink, post, id, dispatch } = props
     // const [getObj, setObj, post, id] = props.addForm
     const contentText = {
         category: "Add a new category to this Project.",
-        link: "Add a new link to this category and provide a name"
+        link: "Add a new link"
     }
 
     // const handleChange = (event) => {
@@ -23,10 +23,10 @@ export default function FormDialog(props) {
     //     console.log(getObj)
     // }
 
-    const postCategoryOrLink = () => {
-        dispatch(post(id, getObj))
-        setOpen(false)
-    }
+    // const postCategoryOrLink = () => {
+    //     dispatch(post(id, getObj))
+    //     handleClose()
+    // }
 
     const isCategory = () => {
         return Object.keys(getObj).length === 1
@@ -40,33 +40,27 @@ export default function FormDialog(props) {
         }
     }
 
-    const handleClose = () => {
-        setOpen(false);
-        // isCategory() ? setObj({ name: "" }) : setObj({ url: "", name: "" })
-    };
-
-
     return (
         <div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="form-dialog-title">Attention</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {isCategory() ? contentText.category : contentText.link}
                     </DialogContentText>
                     {isCategory() ?
-                        <Input
+                        <TextField
                             autoFocus
                             margin="dense"
                             name="name"
                             onChange={setObj}
                             id="name"
                             label="category"
-                            // value={getObj.name}
+                            value={getObj.name}
                             fullWidth
                         /> :
                         <>
-                            <Input
+                            <TextField
                                 autoFocus
                                 margin="dense"
                                 name="url"
@@ -76,13 +70,12 @@ export default function FormDialog(props) {
                                 value={getObj.url}
                                 fullWidth
                             />
-                            <Input
-                                autoFocus
+                            <TextField
                                 margin="dense"
                                 name="name"
                                 onChange={setObj}
                                 id="name"
-                                label="category"
+                                label="name"
                                 value={getObj.name}
                                 fullWidth
                             />
