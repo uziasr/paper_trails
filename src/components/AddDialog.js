@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Input from "@material-ui/core/Input"
@@ -10,23 +10,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormDialog(props) {
     const { open, handleClose, getObj, setObj, postCategoryOrLink, post, id, dispatch } = props
-    // const [getObj, setObj, post, id] = props.addForm
+    const [urlReg] = useState(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/))
     const contentText = {
         category: "Add a new category to this Project.",
         link: "Add a new link"
     }
-
-    // const handleChange = (event) => {
-    //     let newObj = { ...getObj, [event.target.name]: event.target.value }
-    //     console.log(newObj, getObj)
-    //     setObj(() => newObj)
-    //     console.log(getObj)
-    // }
-
-    // const postCategoryOrLink = () => {
-    //     dispatch(post(id, getObj))
-    //     handleClose()
-    // }
 
     const isCategory = () => {
         return Object.keys(getObj).length === 1
@@ -36,7 +24,7 @@ export default function FormDialog(props) {
         if (isCategory()) {
             return getObj.name.length
         } else {
-            return getObj.url.length
+            return urlReg.test(getObj.url)
         }
     }
 

@@ -244,11 +244,25 @@ body {
     text-decoration: none;
 }
 
-.linkText {
-    color: dodgerblue;
-    text-decoration: none;
-    text-align: left;
+.linkWrap {
+    background: dodgerblue;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 16px;
+    word-wrap:break-word;
+}
 
+.linkWrap:hover {
+    background:rgb(20, 88, 156);
+    transition: 500 ms;
+}
+
+.linkText {
+    color: white;
+    text-decoration: none;
+    overflow: hidden;
+
+    /* text-align: left; */
 }
 
 .newLink {

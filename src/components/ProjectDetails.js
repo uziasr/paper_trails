@@ -52,7 +52,7 @@ const ProjectDetails = () => {
 
     const activeHandler = (category) => {
         if (activeCategory) {
-            activeCategory.category === category.name ? setActiveCategory(null) : setActiveCategory(category)
+            activeCategory.name === category.name ? setActiveCategory(null) : setActiveCategory(category)
         } else {
             setActiveCategory(category)
         }
