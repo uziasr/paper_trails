@@ -20,6 +20,10 @@ export const POST_LINK_START = "POST_LINK_START"
 export const POST_LINK_SUCCESS = "POST_LINK_SUCCESS"
 export const POST_LINK_FAIL = "POST_LINK_FAIL"
 
+export const DELETE_PROJECT_START = "DELETE_PROJECT_START"
+export const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS"
+export const DELETE_PROJECT_FAIL = "DELETE_PROJECT_FAIL"
+
 
 export const getProjects = () => dispatch => {
     dispatch({ type: GET_PROJECTS_START })
@@ -57,4 +61,12 @@ export const postLink = (categoryID, link) => dispatch => {
     axiosWithAuth().post(`/links/${categoryID}`, link)
         .then(res => dispatch({ type: POST_LINK_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: POST_LINK_FAIL, payload: err }))
+}
+
+export const deleteProject = (projectID) => dispatch => {
+    dispatch({ type: DELETE_PROJECT_START })
+    axiosWithAuth().delete(`projects/${projectID}`)
+        .then(res => dispatch({ type: DELETE_PROJECT_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: DELETE_PROJECT_FAIL, payload: err }))
+
 }

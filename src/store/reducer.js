@@ -14,6 +14,9 @@ import {
     POST_LINK_START,
     POST_LINK_SUCCESS,
     POST_LINK_FAIL,
+    DELETE_PROJECT_START,
+    DELETE_PROJECT_SUCCESS,
+    DELETE_PROJECT_FAIL,
 } from "./actions"
 
 const initialState = {
@@ -146,6 +149,26 @@ const reducer = (state = initialState, action) => {
             }
         }
         case (POST_LINK_FAIL): {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case DELETE_PROJECT_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case DELETE_PROJECT_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                projects: state.projects.filter(currentProjects => action.payload.id !== currentProjects.id)
+            }
+        }
+        case DELETE_PROJECT_FAIL: {
             return {
                 ...state,
                 loading: false,

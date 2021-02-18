@@ -115,6 +115,8 @@ body {
     background: rgb(27, 27, 27);
 }
 
+
+
 .project {
     width: 175px;
     margin: 1% 2%;
@@ -123,7 +125,19 @@ body {
     border-radius: 15px;
     background: rgb(41, 41, 41);
     cursor: pointer;
+    transition: .8s;
 }
+
+.projectDeletion:hover {
+    transition: .8s;
+    background: black;
+}
+
+.projectDeletion {
+    transition: .8s;
+    background: rgb(32, 1, 1)
+}
+
 
 .projectText {
     font-size: 16px;
@@ -159,7 +173,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-content: center;  
+    align-content: center;
 }
 
 .projectDetailsTitle {
@@ -249,11 +263,11 @@ body {
     margin: 5px;
     border-radius: 15px;
     font-size: 16px;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
 .linkWrap:hover {
-    background:rgb(20, 88, 156);
+    background: rgb(20, 88, 156);
     transition: 500 ms;
 }
 

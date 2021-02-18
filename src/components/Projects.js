@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux"
 import { getProjects } from "../store/actions"
 import Project from "./Project"
-import Input from "@material-ui/core/Input"
-import { postProject } from "../store/actions"
+import { postProject, deleteProject } from "../store/actions"
+import DeleteProjectDialog from "./DeleteProjectDialog"
+import AddProjectDialog from "./AddProjectDialog"
 
 const Projects = (props) => {
 
-    const [newProject, setNewProject] = useState("")
     const [addingProject, setAddingProject] = useState(false)
+    const [projectDelId, setProjectDelId] = useState(null)
+    const [deletingProject, setDeletingProject] = useState(false)
 
     const state = useSelector(state => state)
     const dispatch = useDispatch()
@@ -17,17 +19,33 @@ const Projects = (props) => {
     }, [])
 
     const createProject = () => {
-        if (addingProject) {
-            dispatch(postProject({name: newProject, description: null}))
-            setAddingProject(false)
-        } else {
-            setAddingProject(true)
-        }
+        setAddingProject(true)
+        setDeletingProject(false)
     }
 
-    const projectOnChange = (e) => {
-        setNewProject(e.target.value)
-        console.log(newProject)
+    const currentlyDeleting = () => {
+        setAddingProject(false)
+        setDeletingProject(!deletingProject)
+        setProjectDelId(null)
+    }
+
+    const abortDeletion = () => {
+        setDeletingProject(false)
+    }
+
+    const deleteProjectPermanently = () => {
+        dispatch(deleteProject(projectDelId))
+        setProjectDelId(null)
+        setDeletingProject(null)
+    }
+
+    const addProject = (projectName) => {
+        dispatch(postProject({ name: projectName, description: null }))
+        setAddingProject(false)
+    }
+
+    const abortAddition = () => {
+        setAddingProject(false)
     }
 
     return (
@@ -35,28 +53,21 @@ const Projects = (props) => {
             <div className="projects">
                 <div className="projectHeaderTextWrap">
                     <p className="projectHeaderText">PROJECTS</p>
-                    <div style={{ "display": "flex", width: addingProject ? "5%" : null, justifyContent: "space-between" }}>
-                        {addingProject ?
-                            <div className="addProject" onClick={() => setAddingProject(false)}>
-                                <p>-</p>
-                            </div> : null}
+                    <div style={{ "display": "flex", width: "5%", justifyContent: "space-between" }}>
+                        <div className="addProject" style={{ color: deletingProject ? "dodgerblue" : "white" }} onClick={currentlyDeleting}>
+                            <p>-</p>
+                        </div>
                         <div className="addProject" onClick={() => createProject()}>
-                            <p style={{ color: addingProject && newProject ? "mediumseagreen" : "white" }}>+</p>
+                            <p style={{ color: addingProject ? "mediumseagreen" : "white" }}>+</p>
                         </div>
                     </div>
                 </div>
                 <div className="projectWrap">
-                    {addingProject ?
-                        <div >
-                            <Input
-                                name="project"
-                                onChange={(e) => projectOnChange(e)}
-                            ></Input>
-                        </div>
-                        : null}
-                    {state.projects.map(project => <Project props={props} key={project.id} project={project} />)}
+                    {state.projects.map(project => <Project props={props} key={project.id} project={project} deletingProject={deletingProject} setProjectDelId={setProjectDelId} />)}
                 </div>
             </div>
+            <DeleteProjectDialog open={deletingProject && projectDelId !== null} handleClose={abortDeletion} deleteSubject={deleteProjectPermanently} />
+            <AddProjectDialog open={addingProject} projects={state.projects} addProject={addProject} handleClose={abortAddition} />
         </div>
     );
 };
