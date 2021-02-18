@@ -3,10 +3,14 @@ import { getProjectByID } from "../store/actions"
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import ProjectLinks from "./ProjectLinks"
 import { postCategory, postLink } from "../store/actions"
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddDialog from "./AddDialog"
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { useHistory } from "react-router-dom"
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectDetails = () => {
 
-    const project = useSelector(state => (state.fullProject), shallowEqual)
+    const history = useHistory()
+    const state = useSelector(state => (state), shallowEqual)
+    const { loading } = state
+    const project = state.fullProject
     const dispatch = useDispatch()
     // const [project, setProject] = useState()
     const [activeCategory, setActiveCategory] = useState(null)
@@ -46,7 +53,7 @@ const ProjectDetails = () => {
     }, [])
 
     useEffect(() => {
-        let currentCategory = activeCategory ? project.categories.filter(category=>activeCategory.id===category.id)[0] : null
+        let currentCategory = activeCategory ? project.categories.filter(category => activeCategory.id === category.id)[0] : null
         setActiveCategory(currentCategory)
     }, [project])
 
@@ -90,11 +97,26 @@ const ProjectDetails = () => {
         }
         handleClose()
     }
+    if (loading) {
+        return (<h1>loading...</h1>)
+    }
 
     return (
         project.project !== null ? <div className="projectDetailsRoot">
             <div className="projectDetailsColumn">
-                <p className="projectDetailsTitle">{project.project}</p>
+                <div style={{ display: "flex" }}>
+                    <Tooltip style={{ margin: "0 6%" }} title="Back">
+                        <IconButton aria-label="back">
+                            <ArrowBackIcon onClick={() => history.push({
+                                pathname: `/`,
+                            })} style={{ color: "white" }} />
+                        </IconButton>
+                    </Tooltip>
+                    <div>
+                        <p className="projectDetailsTitle">{project.project}</p>
+                    </div>
+
+                </div>
             </div>
             <div className="projectContent">
                 <div className="projectContentDetailsColumn clickable">

@@ -9,8 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function DeleteProjectDialog(props) {
-    const { open, handleClose, deleteSubject } = props
-
+    const { open, handleClose, deleteSubject, project } = props
 
     return (
         <div>
@@ -18,14 +17,14 @@ export default function DeleteProjectDialog(props) {
                 <DialogTitle id="form-dialog-title">Attention</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete this Project? This actions is irreversible.
+                        Are you sure you want to delete '{project ? project.name : 'null'}'? This actions is irreversible.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={deleteSubject} style={{color:"red"}}>
+                    <Button onClick={deleteSubject} style={{ color: "red" }}>
                         Delete
           </Button>
                 </DialogActions>

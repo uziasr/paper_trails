@@ -52,7 +52,10 @@ export default function FormDialog(props) {
                     <Button onClick={betterHandleClose} color="primary">
                         Cancel
           </Button>
-                    <Button disabled={invalidInputs()} onClick={() => addProject(newProject)} color="primary">
+                    <Button disabled={invalidInputs()} onClick={() => {
+                        addProject(newProject)
+                        setNewProject('')
+                    }} color="primary">
                         Add
           </Button>
                 </DialogActions>

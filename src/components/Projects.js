@@ -9,7 +9,7 @@ import AddProjectDialog from "./AddProjectDialog"
 const Projects = (props) => {
 
     const [addingProject, setAddingProject] = useState(false)
-    const [projectDelId, setProjectDelId] = useState(null)
+    const [projectDel, setProjectDel] = useState(null)
     const [deletingProject, setDeletingProject] = useState(false)
 
     const state = useSelector(state => state)
@@ -26,7 +26,7 @@ const Projects = (props) => {
     const currentlyDeleting = () => {
         setAddingProject(false)
         setDeletingProject(!deletingProject)
-        setProjectDelId(null)
+        setProjectDel(null)
     }
 
     const abortDeletion = () => {
@@ -34,8 +34,8 @@ const Projects = (props) => {
     }
 
     const deleteProjectPermanently = () => {
-        dispatch(deleteProject(projectDelId))
-        setProjectDelId(null)
+        dispatch(deleteProject(projectDel.id))
+        setProjectDel(null)
         setDeletingProject(null)
     }
 
@@ -63,10 +63,10 @@ const Projects = (props) => {
                     </div>
                 </div>
                 <div className="projectWrap">
-                    {state.projects.map(project => <Project props={props} key={project.id} project={project} deletingProject={deletingProject} setProjectDelId={setProjectDelId} />)}
+                    {state.projects.map(project => <Project props={props} key={project.id} project={project} deletingProject={deletingProject} setProjectDel={setProjectDel} />)}
                 </div>
             </div>
-            <DeleteProjectDialog open={deletingProject && projectDelId !== null} handleClose={abortDeletion} deleteSubject={deleteProjectPermanently} />
+            <DeleteProjectDialog open={deletingProject && projectDel !== null} handleClose={abortDeletion} deleteSubject={deleteProjectPermanently} project={projectDel}/>
             <AddProjectDialog open={addingProject} projects={state.projects} addProject={addProject} handleClose={abortAddition} />
         </div>
     );
